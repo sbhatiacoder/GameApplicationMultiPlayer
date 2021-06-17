@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+group 'com.demo.project.sbhatia'
+version 'GameApplication-1.0-SNAPSHOT'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.javatuples:javatuples:1.2'
+  // Vert.x
+  compile group: 'io.vertx', name: 'vertx-rx-java2', version: vertx_version
+  compile group: 'io.vertx', name: 'vertx-web', version: vertx_version
+
+  // Logging
+  compile group: 'org.slf4j', name: 'slf4j-api', version: sl4j_version
+  compile group: 'org.slf4j', name: 'slf4j-simple', version: sl4j_version
+
+  // Testing
+  testCompile "junit:junit:$junit_version"
+  testCompile group: 'io.vertx', name: 'vertx-unit', version: vertx_version
+  testCompile group: 'io.vertx', name: 'vertx-web-client', version: vertx_version
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.demo.project.sbhatia.GameApplication"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
